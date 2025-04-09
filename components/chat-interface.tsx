@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { ArrowUp, Paperclip } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useGeminiChat } from "@/hooks/use-gemini"
 
 interface Message {
   role: "assistant" | "user"
@@ -15,12 +16,14 @@ interface Message {
   timestamp: string
 }
 
+const { sendMessage } = useGeminiChat();
+
 export default function ChatInterface() {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
   const [isMobile, setIsMobile] = useState(false)
+  const [messages, setMessages] = useState<Message[]>([])
 
   // Check if screen is mobile size
   useEffect(() => {
@@ -46,7 +49,7 @@ export default function ChatInterface() {
   }, [messages])
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!input.trim()) return
 
@@ -61,16 +64,39 @@ export default function ChatInterface() {
     setInput("")
     setIsLoading(true)
 
-    // Simulate AI response after a delay
-    setTimeout(() => {
+    try {
+      const assistantReply = await sendMessage(input); // This comes from useGeminiChat()
+  
       const aiMessage: Message = {
         role: "assistant",
-        content: getAIResponse(input),
+        content: assistantReply,
         timestamp: new Date().toLocaleTimeString(),
-      }
-      setMessages((prev) => [...prev, aiMessage])
-      setIsLoading(false)
-    }, 1000)
+      };
+  
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (err) {
+      console.error("Gemini error:", err);
+      const errorMessage: Message = {
+        role: "assistant",
+        content: "❌ Failed to get response from Gemini.",
+        timestamp: new Date().toLocaleTimeString(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+
+
+    // // Simulate AI response after a delay
+    // setTimeout(() => {
+    //   const aiMessage: Message = {
+    //     role: "assistant",
+    //     content: sendMessage(input),
+    //     timestamp: new Date().toLocaleTimeString(),
+    //   }
+    //   setMessages((prev) => [...prev, aiMessage])
+    //   setIsLoading(false)
+    // }, 1000)
   }
 
   // Simple hardcoded responses for testing
