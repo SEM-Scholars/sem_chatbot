@@ -1,5 +1,3 @@
-import { openai } from "@ai-sdk/openai"
-import { streamText } from "ai"
 import axios from 'axios'
 
 const GEMINI_API_KEY = 'AIzaSyBwhid-sXnHbpoDjZxYEuE0RZrPo6nGR00'; // Replace this with your actual Gemini API key

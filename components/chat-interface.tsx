@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { ArrowUp, Paperclip } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useGeminiChat } from "@/hooks/use-gemini"
+import { useMentorText } from "@/hooks/promt-choice"
 
 interface Message {
   role: "assistant" | "user"
@@ -16,14 +17,14 @@ interface Message {
   timestamp: string
 }
 
-const { sendMessage } = useGeminiChat();
-
 export default function ChatInterface() {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
+  const mentorText = useMentorText()
+  const { sendMessage } = useGeminiChat(mentorText);
 
   // Check if screen is mobile size
   useEffect(() => {
