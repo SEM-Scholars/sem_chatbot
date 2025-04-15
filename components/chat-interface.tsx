@@ -100,36 +100,13 @@ export default function ChatInterface() {
     // }, 1000)
   }
 
-  // Simple hardcoded responses for testing
-  const getAIResponse = (userInput: string): string => {
-    const input = userInput.toLowerCase()
-
-    if (input.includes("hello") || input.includes("hi")) {
-      return "Hello! How can I assist you today?"
-    }
-
-    if (input.includes("help")) {
-      return "I'm here to help! What do you need assistance with?"
-    }
-
-    if (input.includes("weather")) {
-      return "I don't have access to real-time weather data, but I can help you find weather information if you tell me your location."
-    }
-
-    if (input.includes("name")) {
-      return "I'm GenerativeAgent, an AI assistant designed to help with your questions and tasks."
-    }
-
-    return "Thank you for your message. Is there anything specific you'd like to know or discuss?"
-  }
-
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       <ScrollArea className="flex-1 p-2 sm:p-4" ref={scrollAreaRef}>
         <div className="space-y-4 w-full max-w-3xl mx-auto">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full max-w-full mx-auto text-center p-2 sm:p-8">
-              <div className="flex items-center mb-4">
+              {/* <div className="flex items-center mb-4">
                 <div className="h-8 w-8 sm:h-10 sm:w-10 bg-black rounded-full flex items-center justify-center">
                   <div className="border-4 border-white h-0 w-0 border-t-transparent border-l-transparent border-r-transparent transform rotate-180"></div>
                 </div>
@@ -137,57 +114,24 @@ export default function ChatInterface() {
                 <div className="h-8 w-8 sm:h-10 sm:w-10 bg-black rounded-full flex items-center justify-center">
                   <div className="h-4 w-4 sm:h-5 sm:w-5 border-2 border-white rounded-full"></div>
                 </div>
-              </div>
-              <p className="text-base sm:text-lg mb-4">
-                This is an <span className="font-medium">open source</span> chatbot template built with Next.js and the
-                AI SDK by Vercel. It uses the <code className="bg-muted px-1 py-0.5 rounded">streamText</code> function
-                in the server and the <code className="bg-muted px-1 py-0.5 rounded">useChat</code> hook on the client
-                to create a seamless chat experience.
-              </p>
-              <p className="text-base sm:text-lg mb-4 sm:mb-8">
-                You can learn more about the AI SDK by visiting the{" "}
-                <a href="https://sdk.vercel.ai/docs" className="underline">
-                  docs
-                </a>
-                .
-              </p>
-
+              </div> */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full max-w-2xl">
                 <div
                   className="border rounded-lg p-3 sm:p-4 hover:bg-muted/50 transition-colors cursor-pointer"
                   onClick={() => {
-                    setInput("What are the advantages of using Next.js?")
+                    setInput("What is SEM Scholars?")
                   }}
                 >
-                  <p className="font-medium text-sm sm:text-base">What are the advantages</p>
-                  <p className="text-muted-foreground text-xs sm:text-sm">of using Next.js?</p>
+                  <p className="font-medium text-sm sm:text-base">What is SEM Scholars?</p>
                 </div>
                 <div
                   className="border rounded-lg p-3 sm:p-4 hover:bg-muted/50 transition-colors cursor-pointer"
                   onClick={() => {
-                    setInput("Write code to demonstrate dijkstra's algorithm")
+                    setInput("I want to know more about how to apply for a scholarship")
                   }}
                 >
-                  <p className="font-medium text-sm sm:text-base">Write code to</p>
-                  <p className="text-muted-foreground text-xs sm:text-sm">demonstrate dijkstra's algorithm</p>
-                </div>
-                <div
-                  className="border rounded-lg p-3 sm:p-4 hover:bg-muted/50 transition-colors cursor-pointer"
-                  onClick={() => {
-                    setInput("Help me write an essay about silicon valley")
-                  }}
-                >
-                  <p className="font-medium text-sm sm:text-base">Help me write an essay</p>
-                  <p className="text-muted-foreground text-xs sm:text-sm">about silicon valley</p>
-                </div>
-                <div
-                  className="border rounded-lg p-3 sm:p-4 hover:bg-muted/50 transition-colors cursor-pointer"
-                  onClick={() => {
-                    setInput("What is the weather in San Francisco?")
-                  }}
-                >
-                  <p className="font-medium text-sm sm:text-base">What is the weather</p>
-                  <p className="text-muted-foreground text-xs sm:text-sm">in San Francisco?</p>
+                  <p className="font-medium text-sm sm:text-base">I want to know more about</p>
+                  <p className="text-muted-foreground text-xs sm:text-sm">how to apply for a scholarship</p>
                 </div>
               </div>
             </div>
@@ -198,7 +142,7 @@ export default function ChatInterface() {
                 <div className={cn("space-y-2", message.role === "user" ? "items-end" : "")}>
                   <div className={cn("flex items-center gap-2", message.role === "user" ? "justify-end" : "")}>
                     <span className="text-xs sm:text-sm font-medium">
-                      {message.role === "assistant" ? "GenerativeAgent" : "User"}
+                      {message.role === "assistant" ? "SEM Scholars" : "User"}
                     </span>
                     <span className="text-xs sm:text-sm text-muted-foreground">{message.timestamp}</span>
                   </div>
@@ -219,7 +163,7 @@ export default function ChatInterface() {
               <div className="h-8 w-8 rounded-full bg-primary flex-shrink-0" />
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs sm:text-sm font-medium">GenerativeAgent</span>
+                  <span className="text-xs sm:text-sm font-medium">SEM Scholars</span>
                   <span className="text-xs sm:text-sm text-muted-foreground">{new Date().toLocaleTimeString()}</span>
                 </div>
                 <div className="p-2 sm:p-3 bg-muted/50 rounded-md max-w-[calc(100vw-5rem)] sm:max-w-md">
