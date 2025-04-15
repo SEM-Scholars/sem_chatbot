@@ -89,7 +89,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           <div className="p-4 border-b flex items-center justify-between h-16 shrink-0">
             <div className={cn("flex items-center gap-2", sidebarCollapsed && "justify-center")}>
               <div className="h-6 w-6 rounded-full bg-primary" />
-              {!sidebarCollapsed && <span className="font-semibold">GenerativeAgent</span>}
+              {!sidebarCollapsed && <span className="font-semibold">SEM Scholars</span>}
             </div>
           </div>
           <ScrollArea className="flex-grow">
@@ -222,7 +222,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           <div className="p-4 border-b flex items-center justify-between h-16 shrink-0">
             <div className="flex items-center gap-2">
               <div className="h-6 w-6 rounded-full bg-primary" />
-              <span className="font-semibold">GenerativeAgent</span>
+              <span className="font-semibold">SEM Scholars</span>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
               <X className="h-5 w-5" />

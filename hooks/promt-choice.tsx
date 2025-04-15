@@ -12,7 +12,7 @@ export const useMentorText = () => {
     const [text, setText] = useState("")
   
     useEffect(() => {
-      fetch("/text/service_infor.txt")
+      fetch("/text_files/service_infor.txt")
         .then((res) => res.text())
         .then(setText)
     }, [])
