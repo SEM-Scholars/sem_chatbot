@@ -67,7 +67,7 @@ export default function ChatInterface() {
 
     try {
       const assistantReply = await sendMessage(input); // This comes from useGeminiChat()
-  
+    
       const aiMessage: Message = {
         role: "assistant",
         content: assistantReply,
