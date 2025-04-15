@@ -4,7 +4,6 @@ import { general_promt } from './promt-choice';
 export const useGeminiChat = (mentorText: String) => {
 
   const sendMessage = async (input: string): Promise<string> => {
-    console.log("haha: ", mentorText)
     const combined = `
       Here is the user's question: ${input} \n\n 
       This is the requirement for you as a bilingual chatbot: ${general_promt} \n\n 
