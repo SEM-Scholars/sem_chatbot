@@ -71,8 +71,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   }, [sidebarCollapsed, historyCollapsed, mobileMenuOpen])
 
   const user = {
-    name: "John Doe",
-    email: "john@example.com",
+    name: "Linh Mon",
+    email: "nguyenlinhmon@gmail.com",
     avatar: "/placeholder.svg?height=32&width=32",
   }
 
@@ -88,8 +88,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         >
           <div className="p-4 border-b flex items-center justify-between h-16 shrink-0">
             <div className={cn("flex items-center gap-2", sidebarCollapsed && "justify-center")}>
-              <div className="h-6 w-6 rounded-full bg-primary" />
-              {!sidebarCollapsed && <span className="font-semibold">SEM Scholars</span>}
+            <img
+              src="/sem_logo.png"
+              alt="SEM Scholars"
+              className="h-16 w-16 rounded-full object-cover"
+            />
+              {!sidebarCollapsed && <span className="font-semibold text-xl text-transparent bg-clip-text bg-gradient-to-r from-[#d40504] to-[#a90260]">SEM Scholars</span>}
             </div>
           </div>
           <ScrollArea className="flex-grow">
@@ -100,28 +104,28 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                   className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
                 >
                   <LayoutGrid className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "Tasks"}
+                  {!sidebarCollapsed && "My Applications"}
                 </Button>
                 <Button
                   variant="ghost"
                   className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
                 >
                   <Functions className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "Functions"}
+                  {!sidebarCollapsed && "Essay Reviews"}
                 </Button>
                 <Button
                   variant="ghost"
                   className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
                 >
                   <Layers className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "Integrations"}
+                  {!sidebarCollapsed && "Scholarship Tracker"}
                 </Button>
                 <Button
                   variant="ghost"
                   className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
                 >
                   <Users className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "Users"}
+                  {!sidebarCollapsed && "Resources"}
                 </Button>
                 <Button
                   variant="ghost"
@@ -137,14 +141,14 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                   className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
                 >
                   <Eye className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "Live preview"}
+                  {!sidebarCollapsed && "Chat with Mentor"}
                 </Button>
                 <Button
                   variant="ghost"
                   className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
                 >
                   <BarChart2 className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "Performance"}
+                  {!sidebarCollapsed && "Book a Session"}
                 </Button>
               </div>
             </div>
@@ -233,11 +237,11 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               <nav className="space-y-2">
                 <Button variant="ghost" className="w-full justify-start">
                   <LayoutGrid className="h-4 w-4 mr-2" />
-                  Tasks
+                  Overview  
                 </Button>
                 <Button variant="ghost" className="w-full justify-start">
                   <Functions className="h-4 w-4 mr-2" />
-                  Functions
+                  My Applications
                 </Button>
                 <Button variant="ghost" className="w-full justify-start">
                   <Layers className="h-4 w-4 mr-2" />
@@ -341,12 +345,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         {!isMobile && !historyCollapsed && (
           <div className="border-l w-80 shrink-0 flex flex-col overflow-hidden">
             <div className="h-16 border-b px-4 flex items-center justify-between shrink-0">
-              <h2 className="font-medium">Conversation history</h2>
+              <h2 className="font-medium">Conversation History</h2>
             </div>
             <ScrollArea className="flex-grow">
               <div className="p-4 space-y-4">
                 {/* Sample conversation history items */}
-                {["Customer inquiry", "Product support", "Billing question"].map((title, i) => (
+                {["Essay Review Request", "Scholarship Guidance", "Application Status Help"].map((title, i) => (
                   <div key={i} className="p-3 bg-muted/50 rounded-lg flex justify-between items-start">
                     <div>
                       <h3 className="text-sm font-medium">{title}</h3>
