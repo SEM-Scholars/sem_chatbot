@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 import { useGeminiChat } from "@/hooks/use-gemini"
 import { useMentorText } from "@/hooks/promt-choice"
 import ReactMarkdown from "react-markdown";
+import BorderBox from "@/components/ui/borderbox"
 
 interface Message {
   role: "assistant" | "user"
@@ -104,44 +105,19 @@ export default function ChatInterface() {
     <div className="flex-1 flex flex-col overflow-hidden">
       <ScrollArea className="flex-1 p-2 sm:p-4" ref={scrollAreaRef}>
         <div className="space-y-4 w-full max-w-3xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full max-w-2xl">
-
-          <div
-            className="border rounded-lg p-3 sm:p-4 hover:bg-muted/50 transition-colors cursor-pointer flex items-center justify-center text-center"
-            onClick={() => {
-              setInput("What is SEM Scholars?")
-            }}
-          >
-            <p className="font-medium text-sm sm:text-base">🎓 What is SEM Scholars?</p>
-          </div>
-
-          <div
-            className="border rounded-lg p-3 sm:p-4 hover:bg-muted/50 transition-colors cursor-pointer flex items-center justify-center text-center"
-            onClick={() => {
-              setInput("How do I find and apply for scholarships?")
-            }}
-          >
-            <p className="font-medium text-sm sm:text-base">📚 How do I find and apply for scholarships?</p>
-          </div>
-
-          <div
-            className="border rounded-lg p-3 sm:p-4 hover:bg-muted/50 transition-colors cursor-pointer flex items-center justify-center text-center"
-            onClick={() => {
-              setInput("What services does SEM Scholars offer?")
-            }}
-          >
-            <p className="font-medium text-sm sm:text-base">💡 What mentoring services does SEM Scholars offer?</p>
-          </div>
-
-          <div
-            className="border rounded-lg p-3 sm:p-4 hover:bg-muted/50 transition-colors cursor-pointer flex items-center justify-center text-center"
-            onClick={() => {
-              setInput("What scholarships am I qualified for?")
-            }}
-          >
-            <p className="font-medium text-sm sm:text-base">🔎 What scholarships am I qualified for?</p>
-          </div>
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full max-w-2xl">
+            <BorderBox onClick={() => setInput("What is SEM Scholars and how does it help students?")} className="text-sm sm:text-base">
+              <p className="font-medium">🎓 What is SEM Scholars and how does it help students?</p>
+            </BorderBox>
+            <BorderBox onClick={() => setInput("How do I find and apply for scholarships?")} className="text-sm sm:text-base">
+              <p className="font-medium">📚 How do I find and apply for scholarships?</p>
+            </BorderBox>
+            <BorderBox onClick={() => setInput("What mentoring services does SEM Scholars offer?")} className="text-sm sm:text-base">
+              <p className="font-medium">💡 What mentoring services does SEM Scholars offer?</p>
+            </BorderBox>
+            <BorderBox onClick={() => setInput("What scholarships could I qualify for based on my profile?")} className="text-sm sm:text-base">
+              <p className="font-medium">🔎 What scholarships could I qualify for based on my profile?</p>
+            </BorderBox>
           </div>
 
           {messages.map((message, index) => (
