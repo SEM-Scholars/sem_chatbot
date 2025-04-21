@@ -88,7 +88,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         >
           <div className="p-4 border-b flex items-center justify-between h-16 shrink-0">
             <div className={cn("flex items-center gap-2", sidebarCollapsed && "justify-center")}>
-            <img src="sem_logo.png" alt="SEM Scholars" className="h-6 w-6 rounded-full object-cover" />
+            <img src="sem_logo.png" alt="SEM Scholars" className="h-16 w-16 rounded-full object-cover" />
               {!sidebarCollapsed && <span className="font-semibold text-xl text-transparent bg-clip-text bg-gradient-to-r from-[#d40504] to-[#a90260]">SEM Scholars</span>}
             </div>
           </div>
