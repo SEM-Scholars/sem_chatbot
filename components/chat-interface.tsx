@@ -178,7 +178,11 @@ export default function ChatInterface() {
 
           {isLoading && (
             <div className="flex gap-2">
-              <div className="h-8 w-8 rounded-full bg-primary flex-shrink-0" />
+              <img
+                src="sem_logo.png"
+                alt="SEM Scholars Logo"
+                className="h-14 w-14 rounded-full object-cover flex-shrink-0"
+              />
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="text-xs sm:text-sm font-medium">SEM Scholars</span>
