@@ -103,16 +103,16 @@ export default function ChatInterface() {
 
   const SuggestedCards = () => (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl w-full">
-      <Card onClick={() => setInput("What is SEM Scholars and how does it help students?")} className="hover:bg-[#f7e7e9] p-6 text-center transition-colors cursor-pointer">
+      <Card onClick={() => setInput("What is SEM Scholars and how does it help students?")} className="p-6 text-center transition-colors cursor-pointer">
         <p className="text-lg font-medium">🎓 What is SEM Scholars and how does it help students?</p>
       </Card>
-      <Card onClick={() => setInput("How do I find and apply for scholarships?")} className="hover:bg-[#f7e7e9] p-6 text-center transition-colors cursor-pointer">
+      <Card onClick={() => setInput("How do I find and apply for scholarships?")} className="p-6 text-center transition-colors cursor-pointer">
         <p className="text-lg font-medium">📚 How do I find and apply for scholarships?</p>
       </Card>
-      <Card onClick={() => setInput("What services does SEM Scholars offer?")} className="hover:bg-[#f7e7e9] p-6 text-center transition-colors cursor-pointer">
+      <Card onClick={() => setInput("What services does SEM Scholars offer?")} className="p-6 text-center transition-colors cursor-pointer">
         <p className="text-lg font-medium">💡 What mentoring services does SEM Scholars offer?</p>
       </Card>
-      <Card onClick={() => setInput("What scholarships am I qualified for?")} className="hover:bg-[#f7e7e9] p-6 text-center transition-colors cursor-pointer">
+      <Card onClick={() => setInput("What scholarships am I qualified for?")} className="p-6 text-center transition-colors cursor-pointer">
         <p className="text-lg font-medium">🔎 What scholarships am I qualified for?</p>
       </Card>
     </div>
