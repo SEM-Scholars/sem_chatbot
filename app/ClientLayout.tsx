@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -37,6 +37,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const [historyCollapsed, setHistoryCollapsed] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
 
   // Check if screen is mobile size
   useEffect(() => {
@@ -97,17 +99,31 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               <nav className="space-y-2">
                 <Button
                   variant="ghost"
-                  className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
+                  onClick={() => router.push("/chat")}
+                  className={cn(
+                    "w-full",
+                    sidebarCollapsed ? "justify-center px-0" : "justify-start",
+                    pathname === "/chat"
+                      ? "bg-[hsl(354,78%,37%)] text-white hover:bg-[hsl(354,78%,37%)] hover:text-white"
+                      : "hover:bg-muted"
+                  )}
                 >
                   <LayoutGrid className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "My Applications"}
+                  {!sidebarCollapsed && "SEM Chat"}
                 </Button>
                 <Button
                   variant="ghost"
-                  className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
+                  onClick={() => router.push("/essay")}
+                  className={cn(
+                    "w-full",
+                    sidebarCollapsed ? "justify-center px-0" : "justify-start",
+                    pathname === "/essay"
+                      ? "bg-[hsl(354,78%,37%)] text-white hover:bg-[hsl(354,78%,37%)] hover:text-white"
+                      : "hover:bg-muted"
+                  )}
                 >
                   <Functions className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "Essay Reviews"}
+                  {!sidebarCollapsed && "Essay Studio"}
                 </Button>
                 <Button
                   variant="ghost"
@@ -233,7 +249,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               <nav className="space-y-2">
                 <Button variant="ghost" className="w-full justify-start">
                   <LayoutGrid className="h-4 w-4 mr-2" />
-                  Overview  
+                  SEM Chat  
                 </Button>
                 <Button variant="ghost" className="w-full justify-start">
                   <Functions className="h-4 w-4 mr-2" />
