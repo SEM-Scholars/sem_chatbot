@@ -1,12 +1,15 @@
 import './globals.css'
 import type React from "react"
 import ClientLayout from "./ClientLayout"
-import { ChatHistoryProvider } from "@/components/chat-context"
-
 
 export const metadata = {
-  generator: 'v0.dev'
-};
+  title: "SEM Scholars",
+  description: "Your personalized scholarship advisor",
+  icons: [
+    { rel: "icon", url: "/sem_logo.png", type: "image/png", sizes: "32x32" },
+    { rel: "shortcut icon", url: "/sem_logo.ico" }
+  ]
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,3 +22,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   )
 }
+

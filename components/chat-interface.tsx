@@ -209,9 +209,10 @@ export default function ChatInterface() {
                   className="min-h-[44px] max-h-32 rounded-md px-12 py-3 resize-none bg-muted/50 pr-12 text-sm"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
-                      e.preventDefault(); 
-                      const form = e.currentTarget.form;
-                      if (form) form.requestSubmit();                 }
+                      e.preventDefault()
+                      const form = e.currentTarget.form
+                        // if (form) form.requestSubmit()
+                    }
                   }}
                 />
                 <div className="absolute right-12 top-1/2 -translate-y-1/2">
@@ -238,4 +239,3 @@ export default function ChatInterface() {
     </div>
   )
 }
-
