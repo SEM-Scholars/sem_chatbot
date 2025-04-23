@@ -1,7 +1,6 @@
 import './globals.css'
 import type React from "react"
 import ClientLayout from "./ClientLayout"
-import { ChatHistoryProvider } from "@/components/chat-context"
 
 export const metadata = {
   title: "SEM Scholars",
