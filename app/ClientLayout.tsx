@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -31,12 +31,15 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from "lucide-react"
+import { useChatHistory } from "@/components/chat-context"
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-  const [historyCollapsed, setHistoryCollapsed] = useState(false)
+  const { historyCollapsed, setHistoryCollapsed } = useChatHistory()
   const [isMobile, setIsMobile] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
 
   // Check if screen is mobile size
   useEffect(() => {
@@ -49,10 +52,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         setSidebarCollapsed(true)
       }
 
-      // Auto-collapse history on smaller screens
-      if (window.innerWidth < 1024 && !historyCollapsed) {
-        setHistoryCollapsed(true)
-      }
+      // // Auto-collapse history on smaller screens
+      // if (window.innerWidth < 1024 && !historyCollapsed) {
+      //   setHistoryCollapsed(true)
+      // }
 
       // Close mobile menu when resizing to desktop
       if (!mobile && mobileMenuOpen) {
@@ -68,7 +71,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
     // Cleanup
     return () => window.removeEventListener("resize", checkIfMobile)
-  }, [sidebarCollapsed, historyCollapsed, mobileMenuOpen])
+  }, [sidebarCollapsed, mobileMenuOpen])
 
   const user = {
     name: "Linh Mon",
@@ -87,9 +90,16 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           )}
         >
           <div className="p-4 border-b flex items-center justify-between h-16 shrink-0">
-            <div className={cn("flex items-center gap-2", sidebarCollapsed && "justify-center")}>
-            <img src="sem_logo.png" alt="SEM Scholars" className="h-16 w-16 rounded-full object-cover" />
-              {!sidebarCollapsed && <span className="font-semibold text-xl text-transparent bg-clip-text bg-gradient-to-r from-[#d40504] to-[#a90260]">SEM Scholars</span>}
+            <div className={cn("flex items-center gap-2 overflow-hidden", sidebarCollapsed && "justify-center")}>
+              <img src="sem_logo.png" alt="SEM Scholars" className="h-14 w-14 rounded-full object-cover shrink-0" />
+              <span
+                className={cn(
+                  "font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-[#d40504] to-[#a90260] whitespace-nowrap transition-opacity duration-200",
+                  sidebarCollapsed ? "opacity-0 w-0" : "opacity-100 ml-1"
+                )}
+              >
+                SEM Scholars
+              </span>
             </div>
           </div>
           <ScrollArea className="flex-grow">
@@ -97,17 +107,31 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               <nav className="space-y-2">
                 <Button
                   variant="ghost"
-                  className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
+                  onClick={() => router.push("/chat")}
+                  className={cn(
+                    "w-full",
+                    sidebarCollapsed ? "justify-center px-0" : "justify-start",
+                    pathname === "/chat"
+                      ? "bg-[hsl(354,78%,37%)] text-white hover:bg-[hsl(354,78%,37%)] hover:text-white"
+                      : "hover:bg-muted"
+                  )}
                 >
                   <LayoutGrid className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "My Applications"}
+                  {!sidebarCollapsed && "SEM Chat"}
                 </Button>
                 <Button
                   variant="ghost"
-                  className={cn("w-full", sidebarCollapsed ? "justify-center px-0" : "justify-start")}
+                  onClick={() => router.push("/essay")}
+                  className={cn(
+                    "w-full",
+                    sidebarCollapsed ? "justify-center px-0" : "justify-start",
+                    pathname === "/essay"
+                      ? "bg-[hsl(354,78%,37%)] text-white hover:bg-[hsl(354,78%,37%)] hover:text-white"
+                      : "hover:bg-muted"
+                  )}
                 >
                   <Functions className={cn("h-4 w-4", !sidebarCollapsed && "mr-2")} />
-                  {!sidebarCollapsed && "Essay Reviews"}
+                  {!sidebarCollapsed && "Essay Studio"}
                 </Button>
                 <Button
                   variant="ghost"
@@ -233,7 +257,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               <nav className="space-y-2">
                 <Button variant="ghost" className="w-full justify-start">
                   <LayoutGrid className="h-4 w-4 mr-2" />
-                  Overview  
+                  SEM Chat  
                 </Button>
                 <Button variant="ghost" className="w-full justify-start">
                   <Functions className="h-4 w-4 mr-2" />
@@ -321,7 +345,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 </Button>
               )}
             </div>
-            {!isMobile && (
+            {!isMobile && pathname === "/chat" && (
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
@@ -329,38 +353,13 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                   className="h-8 w-8 rounded-md"
                   onClick={() => setHistoryCollapsed(!historyCollapsed)}
                 >
-                  {historyCollapsed ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                  {historyCollapsed ? <ChevronLeft /> : <ChevronRight />}
                 </Button>
               </div>
             )}
           </header>
           {children}
         </div>
-
-        {/* Right Panel - Conversation History (desktop only) */}
-        {!isMobile && !historyCollapsed && (
-          <div className="border-l w-80 shrink-0 flex flex-col overflow-hidden">
-            <div className="h-16 border-b px-4 flex items-center justify-between shrink-0">
-              <h2 className="font-medium">Conversation History</h2>
-            </div>
-            <ScrollArea className="flex-grow">
-              <div className="p-4 space-y-4">
-                {/* Sample conversation history items */}
-                {["Essay Review Request", "Scholarship Guidance", "Application Status Help"].map((title, i) => (
-                  <div key={i} className="p-3 bg-muted/50 rounded-lg flex justify-between items-start">
-                    <div>
-                      <h3 className="text-sm font-medium">{title}</h3>
-                      <p className="text-xs text-muted-foreground">Today, {i + 1}:30 PM</p>
-                    </div>
-                    <Button variant="ghost" size="icon" className="h-6 w-6">
-                      <Trash2 className="h-3 w-3" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
-          </div>
-        )}
       </div>
     </div>
   )
