@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-const GEMINI_API_KEY = 'AIzaSyBwhid-sXnHbpoDjZxYEuE0RZrPo6nGR00'; // Replace this with your actual Gemini API key
+const NEXT_PUBLIC_GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY!;
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 export const sendToGemini = async (userInput: string): Promise<string> => {
   try {
     const response = await axios.post(
-      `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
+      `${GEMINI_API_URL}?key=${NEXT_PUBLIC_GEMINI_API_KEY}`,
       {
         contents: [
           {

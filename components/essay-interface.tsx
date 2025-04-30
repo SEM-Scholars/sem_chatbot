@@ -9,9 +9,12 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Card } from "@/components/ui/card"
 import { ArrowUp, Paperclip } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { useGeminiChat } from "@/hooks/use-gemini"
-import { useMentorText } from "@/hooks/promt-choice"
+// import { useGeminiChat } from "@/hooks/use-gemini"
+// import { useMentorText } from "@/hooks/promt-choice"
+import { useRAG } from "@/hooks/use-rag";
 import ReactMarkdown from "react-markdown";
+import ConversationHistory from "@/components/chat-history"
+
 
 interface Message {
   role: "assistant" | "user"
@@ -19,14 +22,22 @@ interface Message {
   timestamp: string
 }
 
-export default function EssayInterface() {
+export default function ChatInterface() {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
-  const mentorText = useMentorText()
-  const { sendMessage } = useGeminiChat(mentorText);
+  // const mentorText = useMentorText()
+  // const { sendMessage } = useGeminiChat(mentorText);
+  const { initializeStore, askWithRAG } = useRAG();
+  const [storeReady, setStoreReady] = useState(false);
+
+  useEffect(() => {
+    initializeStore().then(() => {
+      setStoreReady(true);
+    });
+  }, []);
 
   // Check if screen is mobile size
   useEffect(() => {
@@ -56,6 +67,18 @@ export default function EssayInterface() {
     e.preventDefault()
     if (!input.trim()) return
 
+    if (!storeReady) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "⏳ Please wait... the knowledge base is still loading.",
+          timestamp: new Date().toLocaleTimeString(),
+        },
+      ]);
+      return;
+    }
+
     // Add user message
     const userMessage: Message = {
       role: "user",
@@ -68,7 +91,8 @@ export default function EssayInterface() {
     setIsLoading(true)
 
     try {
-      const assistantReply = await sendMessage(input); // This comes from useGeminiChat()
+      // const assistantReply = await sendMessage(input); // This comes from useGeminiChat()
+      const assistantReply = await askWithRAG(input);
     
       const aiMessage: Message = {
         role: "assistant",
