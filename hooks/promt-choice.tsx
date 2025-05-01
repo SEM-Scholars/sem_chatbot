@@ -36,7 +36,8 @@ export const useMentorText = () => {
     const [text, setText] = useState("")
   
     useEffect(() => {
-      fetch("/text_files/service_infor.txt")
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
+      fetch(`${basePath}/text_files/service_infor.txt`)
         .then((res) => res.text())
         .then(setText)
     }, [])
