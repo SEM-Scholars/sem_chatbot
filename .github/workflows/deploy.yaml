@@ -25,6 +25,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: Github-action-production
+    env:
+      NEXT_PUBLIC_BASE_PATH: ${{ secrets.NEXT_PUBLIC_BASE_PATH }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
