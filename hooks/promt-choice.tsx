@@ -35,24 +35,10 @@ Khi cần thiết, bạn có thể giới thiệu người dùng truy cập http
 export const useMentorText = () => {
     const [text, setText] = useState("")
   
-    // useEffect(() => {
-    //   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
-    //   fetch(`${basePath}/text_files/service_infor.txt`)
-    //     .then((res) => res.text())
-    //     .then(setText)
-    // }, [])
-
     useEffect(() => {
-      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
-      const filePath = `${basePath}/text_files/service_infor.txt`
-      console.log("📂 Resolved fetch path:", filePath)
-    
-      fetch(filePath)
+      fetch(`/text_files/service_infor.txt`)
         .then((res) => res.text())
         .then(setText)
-        .catch((err) => {
-          console.error("❌ Fetch failed:", err)
-        })
     }, [])
   
     return text
